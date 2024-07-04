@@ -1,0 +1,19 @@
+<h1>New Bookmark</h1>
+
+<%= simple_form_for([@list, @bookmark]) do |f| %>
+  <%= f.input :comment %>
+  <%= f.association :movie, collection: Movie.all, label_method: :title, value_method: :id, prompt: 'Select movie' %>
+  <%= f.button :submit %>
+<% end %>
+
+
+<ul>
+  <% @list.bookmarks.each do |bookmark| %>
+    <li>
+      <%= bookmark.comment %>
+      <%= link_to 'Delete', list_bookmarks_path(@list, bookmark), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back to the list', list_path(@list) %>
